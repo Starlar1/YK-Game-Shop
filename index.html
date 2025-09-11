@@ -1,0 +1,531 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><meta name='viewport' content='width=device-width, initial-scale=1'/>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>YK Game Shop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            background-color: #0a0a0a;
+            color: #fff;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            touch-action: pan-y;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 10px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #8B0000 0%, #600000 100%);
+            padding: 12px 0;
+            text-align: center;
+            border-bottom: 2px solid #FFD700;
+            box-shadow: 0 3px 8px rgba(139, 0, 0, 0.5);
+            position: relative;
+            flex-shrink: 0;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #FFF;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        .tagline {
+            font-size: 0.75rem;
+            margin-top: 4px;
+            color: #FFD700;
+        }
+        
+        .games-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            margin-top: 15px;
+            padding-bottom: 15px;
+            flex: 1;
+            justify-content: center;
+        }
+        
+        .game-box {
+            background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+            border-radius: 8px;
+            width: 100%;
+            max-width: 300px;
+            padding: 15px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border: 1px solid #333;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .game-box:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .game-icon {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+        }
+        
+        .mlbb { color: #FF0055; }
+        .pubg { color: #FFCC00; }
+        .tiktok { color: #00f2ea; }
+        
+        .game-title {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: #FFF;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .game-description {
+            color: #CCC;
+            margin-bottom: 10px;
+            font-size: 0.75rem;
+            line-height: 1.3;
+            flex: 1;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(to right, #8B0000, #FF0000);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 16px;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 4px rgba(139, 0, 0, 0.3);
+            font-size: 0.75rem;
+        }
+        
+        .btn:active {
+            transform: scale(0.95);
+            box-shadow: 0 1px 2px rgba(139, 0, 0, 0.3);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 10px;
+            color: #888;
+            border-top: 1px solid #333;
+            background: #111;
+            font-size: 0.7rem;
+            flex-shrink: 0;
+        }
+        
+        /* Animation for game boxes */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .game-box {
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .game-box:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+        
+        .game-box:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+        
+        /* Responsive adjustments for Android */
+        @media (max-width: 340px) {
+            .logo {
+                font-size: 1.3rem;
+            }
+            
+            .game-title {
+                font-size: 1rem;
+            }
+            
+            .btn {
+                padding: 7px 14px;
+                font-size: 0.7rem;
+            }
+            
+            .game-icon {
+                font-size: 1.6rem;
+            }
+            
+            .game-description {
+                font-size: 0.7rem;
+            }
+        }
+        
+        @media (min-height: 700px) {
+            .games-container {
+                gap: 15px;
+            }
+            
+            .game-box {
+                padding: 18px;
+                max-width: 320px;
+            }
+            
+            .game-icon {
+                font-size: 2rem;
+            }
+            
+            .game-title {
+                font-size: 1.2rem;
+            }
+            
+            .btn {
+                padding: 9px 18px;
+                font-size: 0.8rem;
+            }
+        }
+        
+        /* Loading animation */
+        .loader {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        
+        .loader-spinner {
+            width: 35px;
+            height: 35px;
+            border: 3px solid #333;
+            border-radius: 50%;
+            border-top: 3px solid #8B0000;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loader-text {
+            margin-top: 8px;
+            color: #FFF;
+            font-size: 0.8rem;
+        }
+        
+        /* Android-specific optimizations */
+        .game-box-link {
+            text-decoration: none;
+            display: flex;
+            flex: 1;
+            width: 100%;
+            max-width: 300px;
+        }
+        
+        /* Prevent text selection on tap */
+        .game-box, .btn {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        /* Scrollable container styles */
+        .scrollable-container {
+            width: 100%;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 20px;
+        }
+        
+        .scroll-indicator {
+            text-align: center;
+            padding: 8px 0;
+            color: #888;
+            font-size: 0.7rem;
+            opacity: 0.7;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 0.8; }
+            100% { opacity: 0.5; }
+        }
+        
+        .scroll-handle {
+            width: 40px;
+            height: 5px;
+            background-color: #444;
+            border-radius: 3px;
+            margin: 5px auto;
+        }
+        
+        .more-content {
+            margin-top: 20px;
+            padding: 15px;
+            background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+            border-radius: 8px;
+            width: 100%;
+            max-width: 300px;
+            text-align: center;
+            border: 1px solid #333;
+        }
+        
+        .more-title {
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: #FFD700;
+        }
+        
+        .more-text {
+            color: #CCC;
+            font-size: 0.75rem;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <div class="loader" id="loader">
+        <div class="loader-spinner"></div>
+        <div class="loader-text">Loading...</div>
+    </div>
+    
+    <header>
+        <div class="container">
+            <h1 class="logo">YK Game Shop</h1>
+            <div class="tagline">၀ယ်ယူလိုသောအရာများရွေးချယ်ပါ</div>
+        </div>
+    </header>
+    
+    <div class="scrollable-container" id="scrollContainer">
+        <div class="scroll-indicator">
+            <div class="scroll-handle"></div>
+            Scroll down for more content
+        </div>
+        
+        <div class="container">
+            <div class="games-container">
+                <!-- MLBB Box -->
+                <a href="https://starlar1.github.io/YK-Diamond-/" class="game-box-link" id="mlbb-link">
+                    <div class="game-box">
+                        <i class="game-icon fas fa-gamepad mlbb"></i>
+                        <h2 class="game-title">MLBB</h2>
+                        <p class="game-description">MLBB Diamond များ၀ယ်ယူရန်</p>
+                        <div class="btn">၀ယ်ယူမည်</div>
+                    </div>
+                </a>
+                
+                <!-- PUBG Box -->
+                <a href="https://starlar1.github.io/YK-UC/" class="game-box-link" id="pubg-link">
+                    <div class="game-box">
+                        <i class="game-icon fas fa-crosshairs pubg"></i>
+                        <h2 class="game-title">PUBG</h2>
+                        <p class="game-description">PUBG UC များ၀ယ်ယူရန် </p>
+                        <div class="btn">၀ယ်ယူမည်</div>
+                    </div>
+                </a>
+                
+                <!-- TIKTOK Box -->
+                <a href="https://starlar1.github.io/YK-Tiktok-/" class="game-box-link" id="tiktok-link">
+                    <div class="game-box">
+                        <i class="game-icon fas fa-video tiktok"></i>
+                        <h2 class="game-title">TikTok</h2>
+                        <p class="game-description">TikTok Like/Follower/View များ၀ယ်ယူရန် </p>
+                        <div class="btn">၀ယ်ယူမည်</div>
+                    </div>
+                </a>
+                
+           
+                
+         
+                
+                <div class="more-content">
+                    <h3 class="more-title">တရား၀င် Channel </h3>
+                    <p class="more-text">Telegram Channel https://t.me/mgkaungoffical2272024</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; ထုတ်လုပ်သည့် Company - Starlar Company </p>
+            <p>ထုတ်လုပ်သူ Acc Telegram @Starlar1</p>
+        </div>
+    </footer>
+
+    <script>
+        // Show loading animation when a game box is clicked
+        document.querySelectorAll('.game-box-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const loader = document.getElementById('loader');
+                loader.style.display = 'flex';
+                
+                // Simulate loading delay for better UX
+                setTimeout(() => {
+                    window.location.href = this.href;
+                }, 800);
+            });
+        });
+        
+        // Enhanced touch event handling for Android
+        document.addEventListener('touchstart', function(event) {
+            if (event.touches.length > 1) {
+                event.preventDefault();
+            }
+        }, { passive: false });
+        
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+        
+        // Prevent zooming on double-tap
+        document.addEventListener('dblclick', function(e) {
+            e.preventDefault();
+        }, { passive: false });
+        
+        // Improved scrolling performance
+        document.addEventListener('touchmove', function(e) {
+            if (e.scale !== 1) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+        
+        // Adjust layout on load and resize
+        function adjustLayout() {
+            const gamesContainer = document.querySelector('.games-container');
+            const gameBoxes = document.querySelectorAll('.game-box-link');
+            
+            if (window.innerHeight < 600) {
+                gamesContainer.style.gap = '10px';
+                document.querySelector('header').style.padding = '10px 0';
+            } else {
+                gamesContainer.style.gap = '12px';
+            }
+        }
+        
+        window.addEventListener('load', adjustLayout);
+        window.addEventListener('resize', adjustLayout);
+        
+        // Smooth scrolling with controlled speed
+        const scrollContainer = document.getElementById('scrollContainer');
+        let isScrolling = false;
+        
+        scrollContainer.addEventListener('scroll', function() {
+            if (!isScrolling) {
+                window.requestAnimationFrame(function() {
+                    // Hide scroll indicator after user starts scrolling
+                    document.querySelector('.scroll-indicator').style.opacity = 0;
+                    isScrolling = false;
+                });
+                isScrolling = true;
+            }
+        });
+        
+        // Add inertia to scrolling for a more natural feel
+        let startY = 0;
+        let startScrollTop = 0;
+        let velocity = 0;
+        let lastY = 0;
+        let lastTime = 0;
+        let rafId = null;
+        
+        scrollContainer.addEventListener('touchstart', function(e) {
+            startY = e.touches[0].clientY;
+            startScrollTop = scrollContainer.scrollTop;
+            velocity = 0;
+            lastY = startY;
+            lastTime = Date.now();
+            
+            if (rafId !== null) {
+                cancelAnimationFrame(rafId);
+                rafId = null;
+            }
+        });
+        
+        scrollContainer.addEventListener('touchmove', function(e) {
+            const y = e.touches[0].clientY;
+            const scrollTop = startScrollTop + startY - y;
+            
+            // Apply resistance to make scrolling slower
+            scrollContainer.scrollTop = scrollTop;
+            
+            const currentTime = Date.now();
+            const elapsedTime = Math.max(1, currentTime - lastTime);
+            
+            // Calculate velocity with damping
+            velocity = (lastY - y) / elapsedTime;
+            lastY = y;
+            lastTime = currentTime;
+            
+            e.preventDefault();
+        }, { passive: false });
+        
+        scrollContainer.addEventListener('touchend', function() {
+            if (Math.abs(velocity) > 0.1) {
+                // Apply inertia with damping for smoother stop
+                const decay = 0.9;
+                const animate = () => {
+                    velocity *= decay;
+                    scrollContainer.scrollTop += velocity * 10;
+                    
+                    if (Math.abs(velocity) > 0.1) {
+                        rafId = requestAnimationFrame(animate);
+                    } else {
+                        rafId = null;
+                    }
+                };
+                
+                rafId = requestAnimationFrame(animate);
+            }
+        });
+    </script>
+</body>
+</html>
